@@ -14,6 +14,7 @@ import { NgFor } from '@angular/common';
 export class HomeComponent implements OnInit {
   walletData: any | undefined;
   currentBalance: number = 0;
+  last30DaysData: any[] = []
 
   constructor(private walletService: WalletService) { }
 
@@ -47,14 +48,12 @@ export class HomeComponent implements OnInit {
   }
 
   getLast30DaysData(){
-    let last30DaysData: Object[] = []
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-
     this.walletData.incomes.forEach((item: any) => {
       if(item.date > thirtyDaysAgo.toISOString()){
-        last30DaysData.push(item)
-        console.log(last30DaysData)
+        this.last30DaysData.push(item)
+        console.log(this.last30DaysData)
       }
     });
   }
