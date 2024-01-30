@@ -1,0 +1,11 @@
+<p>{{currentBalance}}</p>
+
+<h2>Expenses</h2>
+<p *ngFor="let expense of walletData?.expenses">
+    {{expense.amount}}
+</p>
+
+<h2>Income</h2>
+<p *ngFor="let income of walletData?.incomes">
+    {{income.amount}}
+</p>

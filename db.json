@@ -1,0 +1,12 @@
+{"wallets":[
+    {"_id":"65b3f059afdfe38db2b2bd42",
+    "user":"Binho",
+    "balance":2000,
+    "incomes":[
+        {"amount":31,"date":"2024-01-26T21:31:33.214Z","_id":"65b424f89fed2ced04ed8a0d"},
+        {"amount":100,"date":"2023-12-10T21:31:33.214Z","_id":"65b424f89fed2ced04ed8a0a"}
+    ],
+    "expenses":[
+        {"amount":200,"date":"1970-01-01T05:37:20.126Z","_id":"65b3f05aafdfe38db2b2bd44"},
+        {"amount":499,"date":"2024-01-26T18:52:38.470Z","_id":"65b3ffac1a3b6a7e6a82a5c3"}],
+"__v":0}]}
