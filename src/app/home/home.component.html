@@ -1,11 +1,10 @@
-<p>{{currentBalance}}</p>
+<p>Current balance: {{currentBalance}}</p>
 
-<h2>Expenses</h2>
-<p *ngFor="let expense of walletData?.expenses">
-    {{expense.amount}}
-</p>
+<h2>Last operations:</h2>
+<div *ngFor="let operation of walletData?.operations">
+    <p><strong>{{operation.type}}</strong></p>
+    <p>{{operation.amount}}</p>
+</div>
 
-<h2>Income</h2>
-<p *ngFor="let income of last30DaysData">
-    {{income.amount}}
-</p>
+
+<button (click)="updateBalance()">Update balance</button>

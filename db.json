@@ -4,7 +4,9 @@
     "balance":2000,
     "incomes":[
         {"amount":31,"date":"2024-01-26T21:31:33.214Z","_id":"65b424f89fed2ced04ed8a0d"},
-        {"amount":100,"date":"2023-12-10T21:31:33.214Z","_id":"65b424f89fed2ced04ed8a0a"}
+        {"amount":100,"date":"2023-12-15T21:31:33.214Z","_id":"65b424f89fed2ced04ed8a0a"},
+        {"amount":70,"date":"2024-01-26T21:31:33.214Z","_id":"65b424f89fed2ced04ed8a0i"},
+        {"amount":15,"date":"2024-01-12T21:31:33.214Z","_id":"65b424f89fed2ced04ed8a0p"}
     ],
     "expenses":[
         {"amount":200,"date":"1970-01-01T05:37:20.126Z","_id":"65b3f05aafdfe38db2b2bd44"},

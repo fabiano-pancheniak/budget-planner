@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Wallet } from '../wallet';
 import { WalletService } from '../wallet.service';
 import { NgFor } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -14,52 +15,62 @@ import { NgFor } from '@angular/common';
 export class HomeComponent implements OnInit {
   walletData: any | undefined;
   currentBalance: number = 0;
-  last30DaysData: any[] = []
+  monthlyData: any[] = []
 
-  constructor(private walletService: WalletService) { }
+  constructor(private walletService: WalletService, private router: Router) { }
 
   ngOnInit(): void {
-    //const walletId = '65b3f059afdfe38db2b2bd42'; 
-    const walletId = '29b4'; 
+    const walletId = '65b95ee3361ea42c00efc6b9'; 
+    //const walletId = 'af47'; 
     this.walletService.getWalletData(walletId)
     .subscribe((data: Wallet) => {
-      console.log(data)
-        this.walletData = data;
+        this.walletData = data.wallet;
+        console.log(this.walletData)
         this.currentBalance = this.getBalance()
-        this.getLast30DaysData()
       });
     
     }
 
-  getTotalExpenses(){
-    let totalExpenses: number = 0
-    this.walletData.expenses.forEach((item: any) => {
-      totalExpenses += item.amount
-    });
-    return totalExpenses
+  getOperationsTotals(){
+    let operationsBalance: number = 0
+    this.walletData.operations.forEach((item: any) => {
+      if(item.type === 'expense'){
+        operationsBalance -= item.amount
+        return
+      }
+      operationsBalance += item.amount
+    })
+    return operationsBalance
   }
 
-  getTotalIncome(){
-    let totalIncome: number = 0
+  //revisar
+  getMonthlyData(){
     this.walletData.incomes.forEach((item: any) => {
-      totalIncome += item.amount
-    });
-    return totalIncome
-  }
-
-  getLast30DaysData(){
-    const thirtyDaysAgo = new Date();
-    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-    this.walletData.incomes.forEach((item: any) => {
-      if(item.date > thirtyDaysAgo.toISOString()){
-        this.last30DaysData.push(item)
-        console.log(this.last30DaysData)
+      const currentDate = new Date(item.date)
+      if(currentDate.getMonth() == new Date().getMonth()){
+        this.monthlyData.push(item)
       }
     });
   }
 
   getBalance(){
-    const balance = (this.walletData.balance + this.getTotalIncome()) - this.getTotalExpenses() ;
+    const balance = this.walletData.balance + this.getOperationsTotals();
+    console.log(balance)
     return balance
   }
+
+  updateBalance() {
+    this.router.navigate(['/balance']);
+  }
+  /*
+    getLast30DaysData(){
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+      this.walletData.incomes.forEach((item: any) => {
+        if(item.date > thirtyDaysAgo.toISOString()){
+          //this.last30DaysData.push(item)
+        }
+      });
+    }
+  */
 }
