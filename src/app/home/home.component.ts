@@ -14,8 +14,7 @@ import { Router } from '@angular/router';
 
 export class HomeComponent implements OnInit {
   walletData: any | undefined;
-  currentBalance: number = 0;
-  monthlyData: any[] = []
+  monthBalance = 0
 
   constructor(private walletService: WalletService, private router: Router) { }
 
@@ -25,15 +24,15 @@ export class HomeComponent implements OnInit {
     this.walletService.getWalletData(walletId)
     .subscribe((data: Wallet) => {
         this.walletData = data.wallet;
-        console.log(this.walletData)
-        this.currentBalance = this.getBalance()
+        this.monthBalance = this.getMonthlyOperationsTotals()
       });
     
     }
 
-  getOperationsTotals(){
+  getMonthlyOperationsTotals(){
     let operationsBalance: number = 0
-    this.walletData.operations.forEach((item: any) => {
+    let monthlyData2 = this.getMonthlyData()
+    monthlyData2.forEach((item: any) => {
       if(item.type === 'expense'){
         operationsBalance -= item.amount
         return
@@ -43,34 +42,18 @@ export class HomeComponent implements OnInit {
     return operationsBalance
   }
 
-  //revisar
   getMonthlyData(){
-    this.walletData.incomes.forEach((item: any) => {
+    let monthlyData: Object[] = []
+    this.walletData.operations.forEach((item: any) => {
       const currentDate = new Date(item.date)
-      if(currentDate.getMonth() == new Date().getMonth()){
-        this.monthlyData.push(item)
+      if(currentDate.getFullYear() == new Date().getFullYear() && currentDate.getMonth() == new Date().getMonth()){
+        monthlyData.push(item)
       }
     });
-  }
-
-  getBalance(){
-    const balance = this.walletData.balance + this.getOperationsTotals();
-    console.log(balance)
-    return balance
+    return monthlyData
   }
 
   updateBalance() {
     this.router.navigate(['/balance']);
   }
-  /*
-    getLast30DaysData(){
-      const thirtyDaysAgo = new Date();
-      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-      this.walletData.incomes.forEach((item: any) => {
-        if(item.date > thirtyDaysAgo.toISOString()){
-          //this.last30DaysData.push(item)
-        }
-      });
-    }
-  */
 }
