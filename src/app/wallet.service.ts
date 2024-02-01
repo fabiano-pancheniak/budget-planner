@@ -20,7 +20,7 @@ export class WalletService {
   }
   
   //Refatorar
-  updateBalance(walletId: String, amount: number | null, income: string): Observable<Wallet> {
-    return this.http.patch<Wallet>(`${this.postUrl}`, {amount: amount, type: income})
+  updateBalance(walletId: String, amount: number | null, income: string, category: string): Observable<Wallet> {
+    return this.http.patch<Wallet>(`${this.postUrl}`, {amount: amount, type: income, category: category})
   }
 }

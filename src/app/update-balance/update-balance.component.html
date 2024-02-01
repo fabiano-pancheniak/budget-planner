@@ -3,7 +3,7 @@
 <button (click)="toggleExpense()">Expense</button>
 <input [(ngModel)]="amount" type="number" placeholder="amount">
 <p>category</p>
-<select [(ngModel)]="selectedOption">
+<select [(ngModel)]="selectedCategory">
     <option *ngFor="let item of categories" [value]="item">{{ item }}</option>
 </select>
 <button (click)="updateBalance()">Save</button>

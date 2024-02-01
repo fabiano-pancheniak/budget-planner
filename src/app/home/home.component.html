@@ -1,10 +1,12 @@
 <h4>Current balance: {{walletData?.balance}}</h4>
-<p>savings: {{monthBalance}}</p>
+<p>Month savings: {{monthBalance}}</p>
 
-<h2>Last operations:</h2>
-<div *ngFor="let operation of walletData?.operations">
+<h2>Last operations this month:</h2>
+<div *ngFor="let operation of monthlyOperations">
     <p><strong>{{operation.type}}</strong></p>
-    <p>{{operation.amount}}</p>
+    <p>{{operation.amount}} - {{operation.category}}</p>
 </div>
 
 <button (click)="updateBalance()">Update balance</button>
+
+<app-donut-chart [walletData]="walletData"></app-donut-chart>

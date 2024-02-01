@@ -3,18 +3,21 @@ import { Wallet } from '../wallet';
 import { WalletService } from '../wallet.service';
 import { NgFor } from '@angular/common';
 import { Router } from '@angular/router';
+import { DonutChartComponent } from "../donut-chart/donut-chart.component";
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [NgFor],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+    selector: 'app-home',
+    standalone: true,
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.css',
+    imports: [NgFor, DonutChartComponent]
 })
 
 export class HomeComponent implements OnInit {
   walletData: any | undefined;
   monthBalance = 0
+  monthlyOperations: any[] = []
+  parentData: string = 'Data from parent';
 
   constructor(private walletService: WalletService, private router: Router) { }
 
@@ -25,14 +28,15 @@ export class HomeComponent implements OnInit {
     .subscribe((data: Wallet) => {
         this.walletData = data.wallet;
         this.monthBalance = this.getMonthlyOperationsTotals()
+        this.monthlyOperations = this.getMonthlyData()
       });
     
     }
 
   getMonthlyOperationsTotals(){
     let operationsBalance: number = 0
-    let monthlyData2 = this.getMonthlyData()
-    monthlyData2.forEach((item: any) => {
+    let monthlyData = this.getMonthlyData()
+    monthlyData.forEach((item: any) => {
       if(item.type === 'expense'){
         operationsBalance -= item.amount
         return

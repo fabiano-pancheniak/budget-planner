@@ -6,8 +6,13 @@ export interface Wallet {
         operations: {
             type: string,
             amount: number,
-            date: Date
+            date: Date,
+            category: string
         }[];
+        customCategories: {
+            type: string,
+            description: string
+        }[]
     }
 }
   
