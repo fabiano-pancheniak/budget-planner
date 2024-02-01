@@ -1,6 +1,7 @@
 import { Component, OnChanges, Input, SimpleChanges } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { Wallet } from '../wallet';
+import { group } from '@angular/animations';
 
 @Component({
   selector: 'app-donut-chart',
@@ -34,7 +35,7 @@ export class DonutChartComponent implements OnChanges{
           )
         }
     });  
-      
+
           const groupedTransactions = this.test.reduce((accumulator: any, currentTransaction: any) => {
             const existingCategory = accumulator.find((item:any) => item.category === currentTransaction.category);
           
@@ -48,6 +49,11 @@ export class DonutChartComponent implements OnChanges{
           }, [] as { category: string; amount: number }[]);
           
           console.log(groupedTransactions);
+
+          groupedTransactions.forEach((item: any) => {
+              this.labels.push(item.category),
+              data.push(item.amount)
+          });
     
   }
 
