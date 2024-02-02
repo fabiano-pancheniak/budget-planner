@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DonutChartComponent } from './donut-chart.component';
+import { CustomCategoryComponent } from './custom-category.component';
 
-describe('DonutChartComponent', () => {
-  let component: DonutChartComponent;
-  let fixture: ComponentFixture<DonutChartComponent>;
+describe('CustomCategoryComponent', () => {
+  let component: CustomCategoryComponent;
+  let fixture: ComponentFixture<CustomCategoryComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DonutChartComponent]
+      imports: [CustomCategoryComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(DonutChartComponent);
+    fixture = TestBed.createComponent(CustomCategoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

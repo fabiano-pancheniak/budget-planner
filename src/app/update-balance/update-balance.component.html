@@ -1,9 +1,14 @@
 <a href="/">Home</a>
-<button (click)="toggleIncome()">Income</button>
-<button (click)="toggleExpense()">Expense</button>
-<input [(ngModel)]="amount" type="number" placeholder="amount">
-<p>category</p>
-<select [(ngModel)]="selectedCategory">
-    <option *ngFor="let item of categories" [value]="item">{{ item }}</option>
-</select>
-<button (click)="updateBalance()">Save</button>
+<div class="operation-wrapper">
+    <div class="buttons-wrapper">
+        <button [class.selected]="operation === 'income'" class="toggle-btn" (click)="toggleIncome()">Income</button>
+        <button [class.selected]="operation === 'expense'" class="toggle-btn" (click)="toggleExpense()">Expense</button>
+    </div>
+    <select class="category-selector" [(ngModel)]="selectedCategory">
+        <option *ngFor="let item of categories" [value]="item">{{ item }}</option>
+    </select>
+    <div class="wrapper">
+        <input class="amount-input" [(ngModel)]="amount" type="number" placeholder="amount">
+        <button class="save-btn" (click)="updateBalance()">Save</button>
+    </div>
+</div>

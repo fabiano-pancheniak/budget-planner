@@ -13,11 +13,12 @@ import { Wallet } from '../wallet';
   templateUrl: './update-balance.component.html',
   styleUrl: './update-balance.component.css'
 })
+
 export class UpdateBalanceComponent implements OnInit {
   amount: number | null = null;
-  operation: string = 'income';
-  categories: string[] = [];
-  selectedCategory: string = '';
+  operation: string = 'expense';
+  categories: string[] = EXPENSE_CATEGORIES;
+  selectedCategory: string = EXPENSE_CATEGORIES[0];
   walletId = '65b95ee3361ea42c00efc6b9'; 
   walletData: any | undefined
 
@@ -41,11 +42,13 @@ export class UpdateBalanceComponent implements OnInit {
   toggleIncome(){
     this.operation = 'income'
     this.categories = INCOME_CATEGORIES
+    this.selectedCategory = INCOME_CATEGORIES[0] 
   }
   
   toggleExpense(){
     this.operation = 'expense'
     this.categories = EXPENSE_CATEGORIES
+    this.selectedCategory = EXPENSE_CATEGORIES[0] 
   }
 
   sortCustomCategories(){

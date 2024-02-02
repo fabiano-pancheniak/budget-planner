@@ -1,23 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { Wallet } from '../wallet';
 import { WalletService } from '../wallet.service';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Router } from '@angular/router';
-import { DonutChartComponent } from "../donut-chart/donut-chart.component";
 
 @Component({
     selector: 'app-home',
     standalone: true,
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
-    imports: [NgFor, DonutChartComponent]
+    imports: [NgFor, NgIf]
 })
 
 export class HomeComponent implements OnInit {
   walletData: any | undefined;
   monthBalance = 0
   monthlyOperations: any[] = []
-  parentData: string = 'Data from parent';
+  percentage: string = ''
 
   constructor(private walletService: WalletService, private router: Router) { }
 
@@ -29,6 +28,7 @@ export class HomeComponent implements OnInit {
         this.walletData = data.wallet;
         this.monthBalance = this.getMonthlyOperationsTotals()
         this.monthlyOperations = this.getMonthlyData()
+        this.percentage = this.getPercentage(this.monthBalance, this.walletData.balance)
       });
     
     }
@@ -59,5 +59,10 @@ export class HomeComponent implements OnInit {
 
   updateBalance() {
     this.router.navigate(['/balance']);
+  }
+
+  getPercentage(monthSavings: number, currentBalance: number) {
+    const perc = (monthSavings / currentBalance) * 100;
+    return `${perc.toFixed(2)} %`; 
   }
 }

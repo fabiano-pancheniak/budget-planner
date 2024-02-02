@@ -1,0 +1,20 @@
+.main-container{
+    border: solid 2px black;
+    width: fit-content;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+.operations-data{
+    border: black solid 1px;
+    margin: 4px 0;
+    padding: 4px;
+}
+
+.red {
+    background-color: #FF6961;
+}
+  
+.green {
+    background-color: #C1E1C1;
+}
