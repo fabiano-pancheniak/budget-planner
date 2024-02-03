@@ -1,8 +1,8 @@
 <a href="/">Home</a>
 <div class="operation-wrapper">
     <div class="buttons-wrapper">
-        <button [class.selected]="operation === 'income'" class="toggle-btn" (click)="toggleIncome()">Income</button>
-        <button [class.selected]="operation === 'expense'" class="toggle-btn" (click)="toggleExpense()">Expense</button>
+        <button [class.selected]="operation === 'income'" class="toggle-btn left" (click)="toggleIncome()">Income</button>
+        <button [class.selected]="operation === 'expense'" class="toggle-btn right" (click)="toggleExpense()">Expense</button>
     </div>
     <select class="category-selector" [(ngModel)]="selectedCategory">
         <option *ngFor="let item of categories" [value]="item">{{ item }}</option>
