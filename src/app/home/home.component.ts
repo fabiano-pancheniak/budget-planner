@@ -22,14 +22,15 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     const walletId = '65b95ee3361ea42c00efc6b9'; 
-    //const walletId = 'af47'; 
-    this.walletService.getWalletData(walletId)
-    .subscribe((data: Wallet) => {
-        this.walletData = data.wallet;
-        this.monthBalance = this.getMonthlyOperationsTotals()
-        this.monthlyOperations = this.getMonthlyData()
-        this.percentage = this.getPercentage(this.monthBalance, this.walletData.balance)
-      });
+    
+      this.walletService.getWalletData(walletId)
+      .subscribe((data: Wallet) => {
+          console.log(data)
+          this.walletData = data.wallet;
+          this.monthBalance = this.getMonthlyOperationsTotals()
+          this.monthlyOperations = this.getMonthlyData()
+          this.percentage = this.getPercentage(this.monthBalance, this.walletData.balance)
+        });
     
     }
 

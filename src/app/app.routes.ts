@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { UpdateBalanceComponent } from './update-balance/update-balance.component';
 import { CustomCategoryComponent } from './custom-category/custom-category.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
     {   
@@ -15,5 +17,13 @@ export const routes: Routes = [
     {
         path: 'categories',
         component: CustomCategoryComponent
+    },
+    {
+        path: 'register',
+        component: RegisterComponent
+    },
+    {
+        path: 'login',
+        component: LoginComponent
     }
 ];
