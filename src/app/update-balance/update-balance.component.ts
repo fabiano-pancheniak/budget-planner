@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { INCOME_CATEGORIES, EXPENSE_CATEGORIES } from '../categories'
 import { NgFor } from '@angular/common';
 import { Wallet } from '../wallet';
+import { AuthService } from '../auth.service';
 
 
 @Component({
@@ -19,13 +20,14 @@ export class UpdateBalanceComponent implements OnInit {
   operation: string = 'expense';
   categories: string[] = EXPENSE_CATEGORIES;
   selectedCategory: string = EXPENSE_CATEGORIES[0];
-  walletId = '65b95ee3361ea42c00efc6b9'; 
+  token: any = localStorage.getItem('token')    
+  userID: string = this.authService.parseJwt(this.token).userId
   walletData: any | undefined
 
-  constructor(private walletService: WalletService) { }
+  constructor(private walletService: WalletService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.walletService.getWalletData(this.walletId)
+    this.walletService.getWalletData(this.userID)
     .subscribe((data: Wallet) => {
         this.walletData = data.wallet;
         this.sortCustomCategories()
@@ -34,7 +36,7 @@ export class UpdateBalanceComponent implements OnInit {
     }
 
   updateBalance(){
-    this.walletService.updateBalance(this.walletId, this.amount, this.operation, this.selectedCategory)
+    this.walletService.updateBalance(this.userID, this.amount, this.operation, this.selectedCategory)
       .subscribe()
       this.amount = 0
   }

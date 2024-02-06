@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Observable, catchError, of, throwError } from 'rxjs';
 import { Wallet } from './wallet';
 
 @Injectable({
@@ -19,24 +19,51 @@ export class WalletService {
   
   createWallet(userID: string, balance: number): Observable<Wallet>{
     const url = `${this.apiUrl}`;
-    return this.http.post<Wallet>(url, {userID, balance});
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.token
+    });
+
+    return this.http.post<Wallet>(url, {userID, balance}, { headers });
   }
   
   getWalletData(walletId: string): Observable<Wallet> {
     const url = `${this.apiUrl}/${walletId}`;
-
-    // Set your headers here
+  
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'authorization': this.token
+      'Authorization': this.token
     });
-    this.http.get<Wallet>(url, { headers })
-    return this.http.get<Wallet>(url, { headers });
+  
+    return this.http.get<Wallet>(url, { headers }).pipe(
+      catchError(this.handleError)
+    );
   }
   
   //Refatorar
-  updateBalance(walletId: String, amount: number | null, income: string, category: string): Observable<Wallet> {
-    return this.http.patch<Wallet>(`${this.postUrl}`, {amount: amount, type: income, category: category})
+  updateBalance(userID: String, amount: number | null, income: string, category: string): Observable<Wallet> {
+    
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.token
+    });
+
+    return this.http.patch<Wallet>(`${this.apiUrl}/${userID}/operation`, {amount: amount, type: income, category: category}, {headers})
+  }
+
+  handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `Backend returned code ${error.status}, body was: `, error.error);
+    }
+    // Return an observable with a user-facing error message.
+    return throwError(() => new Error('Something bad happened; please try again later.'));
   }
 
 

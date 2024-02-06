@@ -3,6 +3,7 @@ import { Wallet } from '../wallet';
 import { WalletService } from '../wallet.service';
 import { NgFor, NgIf } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
     selector: 'app-home',
@@ -13,26 +14,36 @@ import { Router } from '@angular/router';
 })
 
 export class HomeComponent implements OnInit {
-  walletData: any | undefined;
+  walletData: any | undefined = null;
   monthBalance = 0
   monthlyOperations: any[] = []
-  percentage: string = ''
+  isTokenExpired: boolean = false
+  token: any = localStorage.getItem('token');
 
-  constructor(private walletService: WalletService, private router: Router) { }
+  constructor(private walletService: WalletService, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
+    const userID = this.authService.parseJwt(this.token).userId
     const walletId = '65b95ee3361ea42c00efc6b9'; 
-    
-      this.walletService.getWalletData(walletId)
-      .subscribe((data: Wallet) => {
-          console.log(data)
-          this.walletData = data.wallet;
-          this.monthBalance = this.getMonthlyOperationsTotals()
-          this.monthlyOperations = this.getMonthlyData()
-          this.percentage = this.getPercentage(this.monthBalance, this.walletData.balance)
-        });
-    
+    this.isTokenExpired = this.authService.isTokenExpired(this.token)
+
+    if(this.isTokenExpired){
+      this.router.navigate(['/login']);
     }
+          
+      this.walletService.getWalletData(userID).subscribe({
+        next: (data: Wallet) => {
+          this.walletData = data.wallet;
+          this.monthBalance = this.getMonthlyOperationsTotals();
+          this.monthlyOperations = this.getMonthlyData();
+        }, 
+        error: (err) => {
+          //Verificar outros casos de erro, esse redireciona caso não encontre a carteira
+          this.router.navigate(['/create-wallet']);
+          console.log(err)
+        }
+      });
+  }
 
   getMonthlyOperationsTotals(){
     let operationsBalance: number = 0
@@ -66,4 +77,6 @@ export class HomeComponent implements OnInit {
     const perc = (monthSavings / currentBalance) * 100;
     return `${perc.toFixed(2)} %`; 
   }
+
+
 }

@@ -4,6 +4,7 @@ import { UpdateBalanceComponent } from './update-balance/update-balance.componen
 import { CustomCategoryComponent } from './custom-category/custom-category.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
+import { CreateWalletComponent } from './create-wallet/create-wallet.component';
 
 export const routes: Routes = [
     {   
@@ -25,5 +26,9 @@ export const routes: Routes = [
     {
         path: 'login',
         component: LoginComponent
+    },
+    {
+        path: 'create-wallet',
+        component: CreateWalletComponent
     }
 ];
