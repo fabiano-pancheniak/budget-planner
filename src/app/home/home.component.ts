@@ -16,7 +16,7 @@ import { AuthService } from '../auth.service';
 export class HomeComponent implements OnInit {
   walletData: any | undefined = null;
   monthBalance = 0
-  monthlyOperations: any[] = []
+  operations: any[] = []
   isTokenExpired: boolean = false
   token: any = localStorage.getItem('token');
 
@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
         next: (data: Wallet) => {
           this.walletData = data.wallet;
           this.monthBalance = this.getMonthlyOperationsTotals();
-          this.monthlyOperations = this.getMonthlyData();
+          this.operations = this.getData("Month");
         }, 
         error: (err) => {
           //Verificar outros casos de erro, esse redireciona caso não encontre a carteira
@@ -93,7 +93,7 @@ export class HomeComponent implements OnInit {
         }
       });
       console.log(data)
-      return data
+      return this.operations = data
     }
 
     if(type == "Week"){
@@ -106,14 +106,14 @@ export class HomeComponent implements OnInit {
         }
       });
       console.log(data)
-      return data
+      return this.operations = data
     }
 
     this.walletData.operations.forEach((item: any) => {
         data.push(item)
       })
     console.log(data)
-    return data
+    return this.operations = data
 
   }
 

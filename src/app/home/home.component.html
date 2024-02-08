@@ -14,7 +14,7 @@
         <button (click)="toggleMonth()">Mês</button>
         <button (click)="toggleWeek()">Semana</button>
     </div>
-    <div class="operations-data" *ngFor="let operation of monthlyOperations">
+    <div class="operations-data" *ngFor="let operation of operations">
         <p class="operation-category">{{ operation.category }}</p>
         <p [class.red]="operation.type === 'expense'" [class.green]="operation.type === 'income'">{{ operation.amount }}</p>
     </div>
