@@ -1,7 +1,7 @@
 <div class="main-container">
     <div class="current-balance">
         <div>
-            <p class="description">Saldo atual</p>
+            <p class="description">Saldo</p>
             <h2 class="balance">R$ {{walletData?.balance}}</h2>
         </div>
         <div class="monthly-balance">
@@ -9,12 +9,16 @@
             <h4 class="balance">{{monthBalance}}</h4>
         </div>
     </div>
-        <h2 class="operations-title">Movimentações no mês</h2>
+    <div>
+        <button (click)="toggleAll()">Tudo</button>
+        <button (click)="toggleMonth()">Mês</button>
+        <button (click)="toggleWeek()">Semana</button>
+    </div>
     <div class="operations-data" *ngFor="let operation of monthlyOperations">
         <p class="operation-category">{{ operation.category }}</p>
         <p [class.red]="operation.type === 'expense'" [class.green]="operation.type === 'income'">{{ operation.amount }}</p>
     </div>
     <div class="w100">
-        <button class="balance-update-btn" (click)="updateBalance()">Update balance</button>
+        <button class="balance-update-btn" (click)="updateBalance()">Atualizar movimentações</button>
     </div>
 </div>

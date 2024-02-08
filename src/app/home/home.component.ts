@@ -23,8 +23,8 @@ export class HomeComponent implements OnInit {
   constructor(private walletService: WalletService, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
+    //Verificar caso não encontre a carteira
     const userID = this.authService.parseJwt(this.token).userId
-    const walletId = '65b95ee3361ea42c00efc6b9'; 
     this.isTokenExpired = this.authService.isTokenExpired(this.token)
 
     if(this.isTokenExpired){
@@ -72,10 +72,61 @@ export class HomeComponent implements OnInit {
   updateBalance() {
     this.router.navigate(['/balance']);
   }
+  
+  addFunds(){
+    this.router.navigate(['/add-funds']);
+  }
 
   getPercentage(monthSavings: number, currentBalance: number) {
     const perc = (monthSavings / currentBalance) * 100;
     return `${perc.toFixed(2)} %`; 
+  }
+
+  getData(type: string){
+    let data: Object[] = []
+    
+    if(type == "Month"){
+      this.walletData.operations.forEach((item: any) => {
+        const itemDate = new Date(item.date)
+        if(itemDate.getFullYear() == new Date().getFullYear() && itemDate.getMonth() == new Date().getMonth()){
+          data.push(item)
+        }
+      });
+      console.log(data)
+      return data
+    }
+
+    if(type == "Week"){
+      this.walletData.operations.forEach((item: any) => {
+        const itemDate = new Date(item.date)
+        const currentDate = new Date();
+        const sevenDaysAgo = new Date(currentDate.getTime() - (7 * 24 * 60 * 60 * 1000));
+        if(itemDate > sevenDaysAgo){
+          data.push(item)
+        }
+      });
+      console.log(data)
+      return data
+    }
+
+    this.walletData.operations.forEach((item: any) => {
+        data.push(item)
+      })
+    console.log(data)
+    return data
+
+  }
+
+  toggleAll(){
+    this.getData('All')
+  }
+
+  toggleWeek(){
+    this.getData('Week')
+  }
+
+  toggleMonth(){
+    this.getData('Month')
   }
 
 

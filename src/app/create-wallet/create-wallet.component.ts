@@ -17,14 +17,15 @@ export class CreateWalletComponent {
   token: any = localStorage.getItem('token')  
   wallet = {
     userID: this.authService.parseJwt(this.token).userId,
-    balance:  ''
+    balance: 0
   }
 
-  constructor(private walletService: WalletService, private router: Router, private authService: AuthService) {  }
+  constructor(private walletService: WalletService, private router: Router, private authService: AuthService) {
+    this.onSubmit()
+  }
 
   onSubmit(){
-    console.log(this.wallet.balance)
-    this.walletService.createWallet(this.wallet.userID, parseFloat(this.wallet.balance))
+    this.walletService.createWallet(this.wallet.userID, this.wallet.balance)
     .subscribe((data: any) => {
       this.router.navigate(['/']);
     });

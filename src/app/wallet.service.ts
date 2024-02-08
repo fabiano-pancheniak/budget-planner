@@ -17,7 +17,7 @@ export class WalletService {
     this.token = JSON.parse(this.token)
   }
   
-  createWallet(userID: string, balance: number): Observable<Wallet>{
+  createWallet(userID: string, balance: Number): Observable<Wallet>{
     const url = `${this.apiUrl}`;
 
     const headers = new HttpHeaders({
@@ -50,6 +50,16 @@ export class WalletService {
     });
 
     return this.http.patch<Wallet>(`${this.apiUrl}/${userID}/operation`, {amount: amount, type: income, category: category}, {headers})
+  }
+
+  addFunds(userID: String, balance: number): Observable<Wallet> {
+    
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': this.token
+    });
+
+    return this.http.patch<Wallet>(`${this.apiUrl}/${userID}/add-funds`, {balance}, {headers})
   }
 
   handleError(error: HttpErrorResponse) {
