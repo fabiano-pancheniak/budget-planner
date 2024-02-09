@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
   operations: any[] = []
   isTokenExpired: boolean = false
   token: any = localStorage.getItem('token');
+  isLoading: boolean = true
 
   constructor(private walletService: WalletService, private router: Router, private authService: AuthService) { }
 
@@ -26,20 +27,22 @@ export class HomeComponent implements OnInit {
     //Verificar caso não encontre a carteira
     const userID = this.authService.parseJwt(this.token).userId
     this.isTokenExpired = this.authService.isTokenExpired(this.token)
-
+/*
     if(this.isTokenExpired){
       this.router.navigate(['/login']);
     }
-          
+*/          
       this.walletService.getWalletData(userID).subscribe({
         next: (data: Wallet) => {
+          console.log(data)
           this.walletData = data.wallet;
           this.monthBalance = this.getMonthlyOperationsTotals();
           this.operations = this.getData("Month");
+          this.isLoading = false
         }, 
         error: (err) => {
-          //Verificar outros casos de erro, esse redireciona caso não encontre a carteira
-          this.router.navigate(['/create-wallet']);
+          //Verificar outros casos de erro, esse redireciona para o login pois não encontrou a carteira
+          this.router.navigate(['/login']);
           console.log(err)
         }
       });

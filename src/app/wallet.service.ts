@@ -22,7 +22,7 @@ export class WalletService {
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': this.token
+      'authorization': this.token
     });
 
     return this.http.post<Wallet>(url, {userID, balance}, { headers });
@@ -33,7 +33,7 @@ export class WalletService {
   
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': this.token
+      'authorization': this.token
     });
   
     return this.http.get<Wallet>(url, { headers }).pipe(
@@ -46,7 +46,7 @@ export class WalletService {
     
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': this.token
+      'authorization': this.token
     });
 
     return this.http.patch<Wallet>(`${this.apiUrl}/${userID}/operation`, {amount: amount, type: income, category: category}, {headers})
@@ -56,7 +56,7 @@ export class WalletService {
     
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': this.token
+      'authorization': this.token
     });
 
     return this.http.patch<Wallet>(`${this.apiUrl}/${userID}/add-funds`, {balance}, {headers})
