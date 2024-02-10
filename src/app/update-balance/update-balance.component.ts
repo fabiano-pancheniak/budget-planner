@@ -38,7 +38,7 @@ export class UpdateBalanceComponent implements OnInit {
   updateBalance(){
     this.walletService.updateBalance(this.userID, this.amount, this.operation, this.selectedCategory)
       .subscribe()
-      this.amount = 0
+      this.amount = null
   }
 
   toggleIncome(){

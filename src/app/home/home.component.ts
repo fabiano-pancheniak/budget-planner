@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   isTokenExpired: boolean = false
   token: any = localStorage.getItem('token');
   isLoading: boolean = true
+  dateFilter: string = "Month"
 
   constructor(private walletService: WalletService, private router: Router, private authService: AuthService) { }
 
@@ -27,14 +28,13 @@ export class HomeComponent implements OnInit {
     //Verificar caso não encontre a carteira
     const userID = this.authService.parseJwt(this.token).userId
     this.isTokenExpired = this.authService.isTokenExpired(this.token)
-/*
+
     if(this.isTokenExpired){
       this.router.navigate(['/login']);
     }
-*/          
+         
       this.walletService.getWalletData(userID).subscribe({
         next: (data: Wallet) => {
-          console.log(data)
           this.walletData = data.wallet;
           this.monthBalance = this.getMonthlyOperationsTotals();
           this.operations = this.getData("Month");
@@ -96,6 +96,7 @@ export class HomeComponent implements OnInit {
         }
       });
       console.log(data)
+      this.dateFilter = "Month"
       return this.operations = data
     }
 
@@ -109,6 +110,7 @@ export class HomeComponent implements OnInit {
         }
       });
       console.log(data)
+      this.dateFilter = "Week"
       return this.operations = data
     }
 
@@ -116,6 +118,8 @@ export class HomeComponent implements OnInit {
         data.push(item)
       })
     console.log(data)
+    
+    this.dateFilter = "All"
     return this.operations = data
 
   }

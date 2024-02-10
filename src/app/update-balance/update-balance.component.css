@@ -1,8 +1,8 @@
 .operation-wrapper{
     display: flex;
     flex-direction: column;
-    width: fit-content;
     margin: auto;
+    width: 350px;
 }
 
 .category-selector{
@@ -14,7 +14,6 @@
 .amount-input{
     height: 2rem;
     font-size: 1rem;
-    margin-right: 2px;
 }
 
 .buttons-wrapper{
@@ -51,12 +50,12 @@
 }
 
 .selected{
-    background-color: #2f5f8f;
+    background-color: #3a74ad;
 }
 
 .wrapper{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    column-gap: 4px;
 }
 

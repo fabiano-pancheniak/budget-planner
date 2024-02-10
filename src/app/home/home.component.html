@@ -9,10 +9,10 @@
             <h4 class="balance">{{monthBalance}}</h4>
         </div>
     </div>
-    <div>
-        <button (click)="toggleAll()">Tudo</button>
-        <button (click)="toggleMonth()">Mês</button>
-        <button (click)="toggleWeek()">Semana</button>
+    <div class="filters">
+        <button [class.selected]="dateFilter === 'All'" class="filters__button" (click)="toggleAll()">Tudo</button>
+        <button [class.selected]="dateFilter === 'Month'" class="filters__button" (click)="toggleMonth()">Mês</button>
+        <button [class.selected]="dateFilter === 'Week'" class="filters__button" (click)="toggleWeek()">Semana</button>
     </div>
     <div class="operations-data" *ngFor="let operation of operations">
         <p class="operation-category">{{ operation.category }}</p>
