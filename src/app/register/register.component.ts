@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -17,17 +18,18 @@ export class RegisterComponent {
     confirmPassword: ''
   };
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   onSubmit(){
     if(this.user.password != this.user.confirmPassword){
+      //validar erro
       console.log('senhas não coincidem')
       return
     }
 
     this.authService.register(this.user.name, this.user.email, this.user.password)
     .subscribe((data: any) => {
-      console.log(data)
+      this.router.navigate(['/login'])
     });
   }
 }

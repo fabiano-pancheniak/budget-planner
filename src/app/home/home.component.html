@@ -1,4 +1,5 @@
 <div *ngIf="!isLoading" class="main-container">
+    <span class="w100 logout" (click)="logout()">Sair</span>
     <div class="current-balance">
         <div>
             <p class="description">Saldo</p>
@@ -18,7 +19,7 @@
         <p class="operation-category">{{ operation.category }}</p>
         <p [class.red]="operation.type === 'expense'" [class.green]="operation.type === 'income'">{{ operation.amount }}</p>
     </div>
-    <div class="w100">
+    <div class="w100 update-balance">
         <button class="balance-update-btn" (click)="updateBalance()">Atualizar movimentações</button>
     </div>
 </div>

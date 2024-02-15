@@ -1,5 +1,5 @@
-<a href="/">Home</a>
 <div class="operation-wrapper">
+    <a class="home" href="/">Página inicial</a>
     <div class="buttons-wrapper">
         <button [class.selected]="operation === 'income'" class="toggle-btn left" (click)="toggleIncome()">Income</button>
         <button [class.selected]="operation === 'expense'" class="toggle-btn right" (click)="toggleExpense()">Expense</button>
@@ -8,7 +8,7 @@
         <option *ngFor="let item of categories" [value]="item">{{ item }}</option>
     </select>
     <div class="wrapper">
-        <input class="amount-input" [(ngModel)]="amount" type="number" placeholder="amount">
+        <input class="amount-input" [(ngModel)]="amount" type="number" placeholder="Quantidade">
         <button class="save-btn" (click)="updateBalance()">Save</button>
     </div>
 </div>

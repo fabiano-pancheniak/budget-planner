@@ -1,0 +1,59 @@
+.registration-form{
+    width: fit-content;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+
+.registration-form h3{
+    color: #3a74ad;
+    align-self: flex-start;
+}
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+}
+
+.form-input{
+    margin: 2px 0;
+    padding: 4px;
+    font-size: 1rem;
+    border-radius: 2px;
+    border: solid 1px black;
+    color: black;
+    width: 280px;
+}
+
+.form-submit{
+    display: flex;
+    flex-direction: column;
+    margin: 4px auto;
+}
+
+.login{
+    margin-top: 4px;
+    display: flex;
+    justify-content: center;
+}
+
+.form-submit button{
+    background-color: #4a98e6;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    padding: 8px;
+    margin: 4px 0;
+}
+
+.error{
+    border: 1px solid red;
+}
+
+.error-message{
+    color: red;
+}

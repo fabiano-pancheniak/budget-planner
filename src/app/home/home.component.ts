@@ -23,9 +23,15 @@ export class HomeComponent implements OnInit {
   dateFilter: string = "Month"
 
   constructor(private walletService: WalletService, private router: Router, private authService: AuthService) { }
-
+  
   ngOnInit(): void {
-    //Verificar caso não encontre a carteira
+    //da erro se redireciona e tenta logar
+    if(!this.token){
+      localStorage.removeItem('token');
+      this.router.navigate(['/login']);
+      return
+    }
+
     const userID = this.authService.parseJwt(this.token).userId
     this.isTokenExpired = this.authService.isTokenExpired(this.token)
 
@@ -35,6 +41,7 @@ export class HomeComponent implements OnInit {
          
       this.walletService.getWalletData(userID).subscribe({
         next: (data: Wallet) => {
+          console.log(data)
           this.walletData = data.wallet;
           this.monthBalance = this.getMonthlyOperationsTotals();
           this.operations = this.getData("Month");
@@ -42,8 +49,8 @@ export class HomeComponent implements OnInit {
         }, 
         error: (err) => {
           //Verificar outros casos de erro, esse redireciona para o login pois não encontrou a carteira
-          this.router.navigate(['/login']);
           console.log(err)
+          this.router.navigate(['/login']);
         }
       });
   }
@@ -134,6 +141,11 @@ export class HomeComponent implements OnInit {
 
   toggleMonth(){
     this.getData('Month')
+  }
+
+  logout(){
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 
 

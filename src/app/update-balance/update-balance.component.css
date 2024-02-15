@@ -3,6 +3,12 @@
     flex-direction: column;
     margin: auto;
     width: 350px;
+    padding: 0 16px;
+}
+
+.home{
+    text-align: end;
+    margin: 8px 0;
 }
 
 .category-selector{
@@ -14,6 +20,7 @@
 .amount-input{
     height: 2rem;
     font-size: 1rem;
+    padding: 4px;
 }
 
 .buttons-wrapper{
@@ -47,6 +54,7 @@
     color: white;
     padding: 8px;
     cursor: pointer;
+    border-radius: 2px;
 }
 
 .selected{

@@ -1,23 +1,18 @@
 <div class="registration-form">
-    <h2>Register</h2>
+    <h3>Registrar</h3>
     <form (ngSubmit)="onSubmit()" #registrationForm="ngForm">
       <div class="form-group">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" [(ngModel)]="user.name" required>
+        <input class="form-input" type="text" id="name" name="name" [(ngModel)]="user.name" required placeholder="Nome">
+        <input class="form-input" type="email" id="email" name="email" [(ngModel)]="user.email" required placeholder="Email">
+        <input class="form-input" type="password" id="password" name="password" [(ngModel)]="user.password" required placeholder="Senha">
+        <input class="form-input" type="password" id="confirm-password" name="confirm-password" [(ngModel)]="user.confirmPassword" required placeholder="Confirmar senha">
       </div>
-      <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" [(ngModel)]="user.email" required>
+      <div class="login">
+        <span>Já possui conta?<a href="/login"> Entrar</a></span>
       </div>
-      <div class="form-group">
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" [(ngModel)]="user.password" required>
+      <div class="form-submit">
+        <button type="submit" [disabled]="!registrationForm.valid">Registrar</button>
       </div>
-      <div class="form-group">
-        <label for="confirm-password">Confirm password:</label>
-        <input type="password" id="confirm-password" name="confirm-password" [(ngModel)]="user.confirmPassword" required>
-      </div>
-      <button type="submit" [disabled]="!registrationForm.valid">Register</button>
     </form>
   </div>
   

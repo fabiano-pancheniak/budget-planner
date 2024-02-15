@@ -4,6 +4,12 @@
     padding: 16px;
 }
 
+.logout{
+    text-decoration: underline;
+    margin: 8px 0;
+    cursor: pointer;
+}
+
 .current-balance{
     display: flex;
     justify-content: space-between;
@@ -45,6 +51,10 @@
 
 .operation-category{
     width: 250px;
+}
+
+.update-balance{
+    margin: 8px 0;
 }
 
 .w100{

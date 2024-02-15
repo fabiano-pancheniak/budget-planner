@@ -32,7 +32,8 @@ export class LoginComponent {
         this.userID = data.user.userID
         localStorage.setItem('token', JSON.stringify(data.token));
         this.loginError = false
-  
+        this.router.navigate(['/'])
+        /*
         this.walletService.getWalletData(this.userID).subscribe({
           next: (data: Wallet) => {
             this.router.navigate(['/']);
@@ -47,8 +48,10 @@ export class LoginComponent {
               })
           }
         });
+        */
       }, 
       error: (err) => {
+        console.error(err)
         this.loginError = true
       }
     })

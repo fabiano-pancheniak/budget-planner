@@ -1,16 +1,15 @@
-<div class="registration-form">
-    <h2>Login</h2>
+<div class="login-form">
+    <h3>Entrar</h3>
     <form (ngSubmit)="onSubmit()" #registrationForm="ngForm">
       <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" [(ngModel)]="user.email" required [ngClass]="{'error': loginError}">
-      </div>
-      <div class="form-group">
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" [(ngModel)]="user.password" required [ngClass]="{'error': loginError}">
+        <input class="form-input" type="email" id="email" name="email" [(ngModel)]="user.email" required [ngClass]="{'error': loginError}" placeholder="Email">
+        <input class="form-input" type="password" id="password" name="password" [(ngModel)]="user.password" required [ngClass]="{'error': loginError}" placeholder="Senha">
       </div>
       <div *ngIf="loginError" class="error-message">Login ou senha incorreto</div>
-      <button type="submit" [disabled]="!registrationForm.valid">Login</button>
+      <span class="register">Não possui conta?<a href="/register"> Registrar</a></span>
+      <div class="form-submit">
+        <button type="submit" [disabled]="!registrationForm.valid">Login</button>
+      </div>
     </form>
   </div>
   
